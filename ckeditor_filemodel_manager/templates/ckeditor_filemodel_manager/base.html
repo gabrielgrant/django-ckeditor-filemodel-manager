@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{% block title %}FileModel Manager{% endblock %}</title>
+
+<link rel="stylesheet" href="/css/main.css" type="text/css" />
+
+<style>
+
+@import url('http://meyerweb.com/eric/tools/css/reset/reset.css');
+
+/*
+@import url('http://github.com/nathansmith/960-Grid-System/raw/master/code/css/960.css');
+*/
+
+/* HTML5 tags */
+header, section, footer,
+aside, nav, article, figure {
+        display: block;
+}
+
+body {
+line-height: 1.429em;
+}
+
+}
+
+
+
+</style>
+
+<!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+<![endif]-->
+
+<!--[if lt IE 7]>
+<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/ie7-squish.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/>
+<![endif]-->
+{% block extra_head %}{% endblock %}
+</head>
+
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

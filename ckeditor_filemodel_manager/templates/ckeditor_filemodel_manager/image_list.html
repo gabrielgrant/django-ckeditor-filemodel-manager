@@ -1,0 +1,111 @@
+{% extends "ckeditor_filemodel_manager/base.html" %}
+{% load multifor %}
+{% block extra_head %}
+{{ block.super }}
+<style>
+img {
+vertical-align: bottom;
+}
+
+.img_list {
+margin: 10px;
+}
+
+.img_list li {
+margin: 10px;
+padding: 0;
+float: left;
+overflow: hidden;
+position: relative;
+}
+
+.img_list li img {
+height: 120px;
+}
+
+.img_list .caption {
+font-family: "Avant Garde", "Avantgarde", "Century Gothic", "Gothic", sans-serif;
+position: absolute;
+width: 100%;
+bottom: 0;
+background: rgba(0, 0, 0, 0.75);
+color: white;
+font-size: 14px;
+}
+
+.img_list .caption {
+visibility: hidden;
+}
+
+.img_list li:hover .caption {
+visibility: visible;
+} 
+
+.img_list .caption a 
+{
+color: white;
+padding: 10px;
+}
+
+.caption .insert {
+float: left;
+}
+
+.caption .edit {
+float: right;
+}
+
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
+<script>
+//var CKEDITOR_HELPERS = function(){
+	// Helper function to get parameters from the query string.
+	function getUrlParam(paramName)
+	{
+	  var reParam = new RegExp('(?:[\?&]|&amp;)' + paramName + '=([^&]+)', 'i') ;
+	  var match = window.location.search.match(reParam) ;
+	 
+	  return (match && match.length > 1) ? match[1] : '' ;
+	}
+	function doCKEditorUrlPass(fileUrl){
+		var funcNum = getUrlParam('CKEditorFuncNum');
+		window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+	}
+//}
+$(function (){
+	$(".img_list .insert").click(function (event){
+		url = $(this).closest("li").find("img").attr("src");
+		// we want to get src from the DOM to ensure it is an absolute path
+		src = $(this).closest("li").find("img").get()[0].src
+		// we only want the path component, not the server
+		src = '/' + src.split('/').slice(3).join('/');
+		doCKEditorUrlPass(src);
+		window.close();
+		return false;
+	})
+});
+
+
+/* ugly URL qualification. Needed for IE6.
+See http://stackoverflow.com/questions/470832/getting-an-absolute-url-from-a-relative-one-ie6-issue/472729#472729
+
+*/
+
+/* there are three options:
+the all fit within the space: we're good
+the next X pictures fit exactly: we're good
+the next N pictures don't fill the space, but N+1 pictures overflows. Two options:
+	horozontally crop all the images in the row to make the N+1 images fit
+	vertically crop all the images in the row to make the N images fill
+	how to decide which?
+*/
+</script>
+{% endblock %}
+{% block content %}
+<div style="float:right;"><a href="./add">Add image</a></div>
+<h1>Select image to insert</h1>
+<ul class="img_list">
+{% for i in object_list %}<li><img src="{{ i.pk }}/url/" /><div class="caption"><a href="" class="insert">Insert</a> <a href="./{{ i.pk }}/edit/" class="edit">Edit</a></div></li>{% endfor %}
+</ul>
+{% endblock %}

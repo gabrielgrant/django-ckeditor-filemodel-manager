@@ -1,0 +1,12 @@
+{% extends "ckeditor_filemodel_manager/base.html" %}
+{% block content %}
+<div style="float:right;"><a href="{% block backlink %}../{% endblock %}">&lt; Back to image list</a></div>
+<h1>{% block headline %}{% endblock %}</h1>
+<form enctype="multipart/form-data" action="" method="POST">
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" value="Save" />
+</form>
+{% endblock %}

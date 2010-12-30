@@ -1,0 +1,69 @@
+
+django-ckeditor-filemodel-manager
+
+Integrates CKEditor with files contained in Django models by providing:
+
+- CKEditor-compatible browser/uploader for Django image-models and (soon) file-models 
+- static urls for models' files/images (rather than directly using Media URLs for specific files) 
+- optional per-model-instance file list when editing
+- integration with [django-ckeditor](https://github.com/gabrielgrant/django-ckeditor) (if it is installed/available)
+
+The focus is on models which have file fields, rather than dealing with file-system files directly. This abstraction is useful because it allows your django models to be the cannonical source of information and it allows each instance of a model to have its own set of images.
+
+##Installation##
+
+pip install
+include in app list
+activate (preferably in urls - same as admin)
+include in urls
+
+##Usage##
+
+Each field that contains HTML needs to be registered in a similar way
+to how models are registered with the Django admin.
+
+There are two primary ways this would be used
+
+###Per-model image set###
+
+site.register(
+	NewsStory, 'body', image_model=NewsImage, image_fieldname='image'
+)
+
+
+###Per-instance image set###
+
+class NewsStoryManager(manager.ModelManager):
+	image_set_fieldname = 'images'
+	image_fieldname = 'image'
+
+
+it is also possible to override the image_queryset parameter to filter based on custom criteria:
+
+class NewsStoryManager(manager.ModelManager):
+	image_queryset = NewsImage.objects.filter(public=True)
+	image_fieldname = 'image'
+
+but doing so will cause problems when adding new images, since we won't know how to construct image instances to meet the queryset criteria (adding public=True, in this case)
+
+so you will also need to override the add_image_to_set() method:
+
+class NewsStoryManager(manager.ModelManager):
+	image_queryset = NewsImage.objects.filter(public=True)
+	image_fieldname = 'image'
+	def add_image_to_set(self, content_instance, image_instance):
+		image_instance.public = True
+
+
+###Permissions###
+
+Managing files (and their associated objects) has the potential to be a security risk, so the manager comes with a permission system similar to that found in the django admin app.
+
+By default:
+
+- anyone can view an individual image
+- users must be logged in to browse the images
+- users must have permission (from the django permission system) to create, change or delete an image
+
+
+
