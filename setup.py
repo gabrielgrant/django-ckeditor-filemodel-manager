@@ -4,6 +4,7 @@ setup(
     name='django-ckeditor-filemodel-manager',
     version='0.1dev',
     packages=['ckeditor_filemodel_manager',],
+    include_package_data=True,
     author='Gabriel Grant',
     author_email='g@briel.ca',
     license='LGPL',
