@@ -105,6 +105,6 @@ the next N pictures don't fill the space, but N+1 pictures overflows. Two option
 <div style="float:right;"><a href="./add">Add image</a></div>
 <h1>Select image to insert</h1>
 <ul class="img_list">
-{% for i in object_list %}<li><img src="{{ i.pk }}/url/" /><div class="caption"><a href="" class="insert">Insert</a> <a href="./{{ i.pk }}/edit/" class="edit">Edit</a></div></li>{% endfor %}
+{% for i in object_list %}<li><img src="{{ i.pk }}/url/" /><div class="caption"><a href="" class="insert">Insert</a> <a href="./{{ i.pk }}/edit/" class="edit">Edit</a></div></li>{% empty %}<p style="text-align:center;">There don't appear to be any images here. <a href="./add">Add one now</a></p>{% endfor %}
 </ul>
 {% endblock %}
