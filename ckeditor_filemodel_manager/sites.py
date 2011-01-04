@@ -76,7 +76,6 @@ class ManagerSite(object):
 			CKEDITOR_PRESENT and
 			getattr(manager_instance, 'use_ckeditor_formfield', False)
 		):
-			print "doin' the nasty"
 			self.set_ckeditor_formfield(manager_instance)
 		
 	def set_ckeditor_formfield(self, manager):

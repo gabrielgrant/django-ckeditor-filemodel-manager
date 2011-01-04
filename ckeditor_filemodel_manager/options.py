@@ -86,7 +86,6 @@ class ModelManager(object):
 				wrap(self.image_list_view),
 				name='%s_%s_%s_image_list' % info),
 		)
-		print urlpatterns[-1]
 		return urlpatterns
 
 	def urls(self):
@@ -102,14 +101,12 @@ class ModelManager(object):
 					exclude = (
 						getattr(self.model, self.image_set_fieldname).related.field.name,
 					)
-					print exclude
 						
 		info = (self.model._meta.app_label,
 			self.model._meta.module_name,
 			self.fieldname
 		)
 		success_view_name = 'ckeditor_filemodel_manager:%s_%s_%s_image_list' % info
-		#print reverse(success_view_name, kwargs={'object_pk': 1})
 		 
 		class ManagerViewMixin(object):
 			success_url = '%d/%s/images/(?P<pk>.+)/'# % self.object.pk
@@ -135,7 +132,6 @@ class ModelManager(object):
 				# we want to go further up the class hierarchy for this function 
 				bases = type(inner_self).__bases__
 				base = [b for b in bases if ManagerViewMixin not in b.mro()][0]
-				print base
 				context = base.get_context_data(inner_self, **kwargs)
 				if 'object_list' in context:
 					context['url_list'] = [self.get_image_url(o) for o in context['object_list']]
