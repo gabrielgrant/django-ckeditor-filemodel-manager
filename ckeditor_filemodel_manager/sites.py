@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.conf import settings
 from django import forms  # for monkey patching
 from django.core.urlresolvers import reverse
-
+from django.views.generic import TemplateView
 
 from ckeditor_filemodel_manager.options import ModelManager
 
@@ -169,7 +169,7 @@ class ManagerSite(object):
 
 		def wrap(view, cacheable=False):
 			def wrapper(*args, **kwargs):
-				return self.admin_view(view, cacheable)(*args, **kwargs)
+				return self.manager_view(view, cacheable)(*args, **kwargs)
 			return update_wrapper(wrapper, view)
 		
 		# Manager-site-wide views.
@@ -183,6 +183,12 @@ class ManagerSite(object):
 			urlpatterns += patterns('',
 				url(r'^%s/%s/$' % (info), wrap(fieldlist_view),
 					name='%s_%s_fieldlist' % info
+				),
+				url(r'^%s/%s/None' % (info),
+					wrap(TemplateView.as_view(template_name=(
+						'ckeditor_filemodel_manager/unsaved.html'
+					))),
+					name='%s_%s_unsaved' % info
 				),
 			)
 				
