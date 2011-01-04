@@ -1,0 +1,5 @@
+include AUTHORS
+include MANIFEST.in
+include README
+include TODO
+recursive-include ckeditor_filemodel_manager/templates *.html

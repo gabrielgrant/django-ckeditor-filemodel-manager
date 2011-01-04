@@ -1,0 +1,7 @@
+
+finish test project
+write more tests
+
+Allow registering (Model, None) tuples which act as a default for any field on the model. This would allow, for example, blurb and body fields on the same model to share images between them
+
+a system to ouput custom HTML when images are added through CKEditor. This could, for example, wrap an image in a div and dynamically insert a caption stored on the file-model into the HTML.
