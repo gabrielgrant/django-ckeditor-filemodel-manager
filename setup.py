@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='django-ckeditor-filemodel-manager',
-    version='0.1.2dev',
+    version='0.1.3dev',
     packages=['ckeditor_filemodel_manager',],
     include_package_data=True,
     author='Gabriel Grant',
