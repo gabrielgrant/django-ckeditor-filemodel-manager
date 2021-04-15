@@ -11,7 +11,7 @@ setup(
     long_description=open('README').read(),
     url='http://github.org/gabrielgrant/django-ckeditor-filemodel-manager/',
     install_requires=[
-        'PIL',
+        'pillow',
         'django-ckeditor>=0.9.4',
     ],
     dependency_links = [
